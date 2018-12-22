@@ -26,10 +26,10 @@ public:
 class Student{
 public:
   string SurName,OtherName,dateOfBirth;
-  int Age =0, stu_ID=0,course_score = 0;
+  int Age =0, stu_ID=0,course_score[7];
   char Sex;
-  string ID, courses;
-  char student_grade;
+  string ID, courses[7];
+  char student_grade[7];
   int no_of_courses =0;
 
 };
@@ -74,10 +74,16 @@ Staff staf;
     cout<<"How many courses will "<<student.SurName <<" " << student.OtherName<<" be offering "<<endl;
     cout<<"Maximum course per semester is 7"<<endl;
     cin>>student.no_of_courses;
-    cout<<"Enter the courses of student"<<endl;
-    cin>>student.courses;
-    cout<<"Enter Score of the courses"<<endl;
-    cin>>student.course_score;
+    cout<<"Enter the courses of student"<< student.SurName<<" "<<student.OtherName<<endl;
+    for (int i = 0; i<student.no_of_courses; i++)
+    cin>>student.courses[i];
+    cout<<"**Enter Score of the courses**"<<endl;
+    for(int j=0; j<student.no_of_courses; j++)
+    {cout<< "Enter score for "<<student.courses[j]<<endl;
+     cin>>student.course_score[j];
+     student.student_grade[j]= grade(student.course_score[j]);
+     cout<<"Grade : "<<student.student_grade[j]<<endl;
+    }
      stud<<student.stu_ID<<" \t "<<student.SurName<<" \t " <<student.OtherName<<" \t "<<student.Age<<" \t "<<student.Sex<<" \t "<<student.dateOfBirth<<" \t "<<student.courses<<endl;
     cout<<endl;}
 
@@ -236,7 +242,7 @@ char grade(int score)
         grade = 'D';
     else if(score >= 40 && score <50)
         grade = 'E';
-    else if(score >= 75 && score <80)
+    else if(score <40)
         grade = 'F';
         return grade;
 }
