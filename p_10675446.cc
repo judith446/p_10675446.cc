@@ -30,16 +30,17 @@ public:
   char Sex;
   string ID, courses;
   char student_grade;
+  int no_of_courses =0;
 
 };
 
 Student student;
 Staff staf;
-    cout<<"Welcome to the School Management System"<<endl;
+    cout<<" ******* Welcome to the School Management System ******"<<endl;
 
-    cout<<"Please select your option"<<endl;
+    cout<<"******* Please select your option ********"<<endl;
 
-    cout<<"1.Student "<<"2.Staff"<<endl;
+    cout<<" 1.Student "<<" "<<" 2.Staff "<<endl;
     cin>>option;
 
     if(option == 1)
@@ -51,9 +52,9 @@ Staff staf;
 
      while (studentInput!=5){
     cout<<"1.Add Student ";
-    cout<<"2.Edit Student Records";
-    cout<<"3.Delete Student Records"<<endl;
-    cout<<"4.Print Academic Record" <<endl;
+    cout<<" 2.Edit Student Record ";
+    cout<<" 3.Delete Student Record "<<endl;
+    cout<<" 4.Print Academic Record " <<endl;
     cin>>studentInput;
 
     if (studentInput == 1)
@@ -70,6 +71,9 @@ Staff staf;
     cin>>student.Sex;
     cout<<"Enter Date of Birth(DD \MM \YY)"<<endl;
     cin>>student.dateOfBirth;
+    cout<<"How many courses will "<<student.SurName <<" " << student.OtherName<<" be offering "<<endl;
+    cout<<"Maximum course per semester is 7"<<endl;
+    cin>>student.no_of_courses;
     cout<<"Enter the courses of student"<<endl;
     cin>>student.courses;
     cout<<"Enter Score of the courses"<<endl;
@@ -199,17 +203,17 @@ Staff staf;
     cout<<"Enter Name of staff's data you want to delete "<<endl;
     cin>>Staff_del;
 
-   ifstream delete; //for reading records
-   delete.open("Staff.txt");
+   ifstream delet; //for reading records
+   delet.open("Staff.txt");
 
     ofstream StffDel;
     StffDel.open("DelStaff.txt");
-    while (getline(delete, line))
+    while (getline(delet, line))
     {
       if (line != Staff_del)
         StffDel << line << endl;
     }
-    delete.close();
+    delet.close();
     StffDel.close();
     remove("Staff.txt");
     rename("DelStaff.txt", "Staff.txt");
