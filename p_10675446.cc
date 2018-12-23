@@ -21,12 +21,13 @@ public:
     int age =0;
     char sex;
     int staff_ID = 0;
+     
 };
 
 class Student{
 public:
   string SurName,OtherName,dateOfBirth;
-  int Age =0, stu_ID=0,course_score[7];
+  int Age =0, stu_ID=0,course_score[7], aca =0;
   char Sex;
   string ID, courses[7];
   char student_grade[7];
@@ -55,6 +56,7 @@ Staff staf;
     cout<<" 2.Edit Student Record ";
     cout<<" 3.Delete Student Record "<<endl;
     cout<<" 4.Print Academic Record " <<endl;
+    cout<<"5.To Quit "<<endl;
     cin>>studentInput;
 
     if (studentInput == 1)
@@ -84,8 +86,11 @@ Staff staf;
      student.student_grade[j]= grade(student.course_score[j]);
      cout<<"Grade : "<<student.student_grade[j]<<endl;
     }
-     stud<<student.stu_ID<<" \t "<<student.SurName<<" \t " <<student.OtherName<<" \t "<<student.Age<<" \t "<<student.Sex<<" \t "<<student.dateOfBirth<<" \t "<<student.courses<<endl;
-    cout<<endl;}
+     for (int k =0; k<student.no_of_courses; k++){
+     stud<<student.stu_ID<<" \t "<<student.SurName<<" \t " <<student.OtherName<<" \t "<<student.Age<<" \t "<<student.Sex<<" \t "<<student.dateOfBirth<<" \t "<<student.courses[k]<<" \t "<<student.student_grade[k]<<endl;
+    }
+     }
+     cout<<endl;}
 
     else if(studentInput==2)
  {
@@ -108,16 +113,43 @@ Staff staf;
     rename("NewSt.txt", "Students.txt");
 
     //Now add new Record to file
-    cout<<"enter Surname"<<endl;
+    cout<<"Enter Surname"<<endl;
     cin>>student.SurName;
 
     cout<<"Enter other Name"<<endl;
     cin>>student.OtherName;
+         
+    cout<<"Enter age"<<endl;
+    cin>>student.Age;
+    cout<<"M/F"<<endl;
+    cin>>student.Sex;
+    cout<<"Enter Date of Birth(DD \MM \YY)"<<endl;
+    cin>>student.dateOfBirth;
+    cout<<"How many courses will "<<student.SurName <<" " << student.OtherName<<" be offering "<<endl;
+    cout<<"Maximum course per semester is 7"<<endl;
+    cin>>student.no_of_courses;
+    cout<<"Enter the courses of student"<< student.SurName<<" "<<student.OtherName<<endl;
+    for (int i = 0; i<student.no_of_courses; i++)
+    cin>>student.courses[i];
+    cout<<"**Enter Score of the courses**"<<endl;
+    for(int j=0; j<student.no_of_courses; j++)
+    {cout<< "Enter score for "<<student.courses[j]<<endl;
+     cin>>student.course_score[j];
+     student.student_grade[j]= grade(student.course_score[j]);
+     cout<<"Grade : "<<student.student_grade[j]<<endl;
 
     ofstream stud;
     stud.open("Students.txt", ios::app | ios::out);
     stud<<student.SurName;
     stud<<student.OtherName;
+     stud<<student.Age;
+     stud<<student.Sex;
+     stud<<student.dateOfBirth;
+     stud<<student.no_of_courses;
+     stud<<student.courses[i];
+     stud<<student.course_score[j];
+     stud<<student.student_grade[j];
+     
 }
    else if(studentInput==3)
  {
@@ -141,6 +173,23 @@ Staff staf;
 
     cout<<"Student Record deleted"<<endl;
     }
+    else if (studentInput == 4)
+    {
+                 cout<<"Enter the index number of the Student's Academic Record you want to print "<<endl;
+        cin>>student.aca;
+       cout<<"                      ACADEMIC RECORD                  "<<endl;
+
+   ifstream acaRecord; //for reading records
+   acaRecord.open("Students.txt");
+    while (getline(acaRecord, line))
+    {
+      if (line ==student.aca)
+        cout << line << endl;
+    }
+    acaRecord.close();
+    }
+          else
+               break;
      }
     }
     else if(option == 2){
@@ -152,10 +201,13 @@ Staff staf;
       cout<<"1.Add Staff ";
       cout<<"2.Edit Staff Records";
       cout<<"3.Delete Staff Records"<<endl;
+      cout<<"5.To Quit "<<endl;
       cin>>staffInput;
 
     if (staffInput==1)
     {
+     cout<<"Enter Satff's ID"<<endl;
+     cin>>staf.staff_ID;
     cout<<"Enter staff's Name"<<endl;
     cin>>staf.surName;
     cout<<"Enter Other names"<< endl;
@@ -166,8 +218,10 @@ Staff staf;
     cin>>staf.sex;
     cout<<"Enter Date of Birth(DD \MM \YY)"<<endl;
     cin>>staf.date_ofBirth;
+     cout<<"Enter position held in school "<<endl;
+     cin>>staf.position;
 
-     staff<<staf.surName<<" \t " <<staf.otherName<<" \t "<<staf.age<<" \t "<<staf.sex<<" \t "<<staf.date_ofBirth<<endl;
+     staff<<staf.staff_ID<<" \t "<<staf.surName<<" \t " <<staf.otherName<<" \t "<<staf.age<<" \t "<<staf.sex<<" \t "<<staf.date_ofBirth<<" \t "<< staf.position<<endl;
     cout<<endl;}
     }
 
@@ -197,11 +251,23 @@ Staff staf;
 
     cout<<"Enter other Name"<<endl;
     cin>>staf.otherName;
+    cout<<"Enter age"<<endl;
+    cin>>staf.age;
+    cout<<"M/F"<<endl;
+    cin>>staf.sex;
+    cout<<"Enter Date of Birth(DD \MM \YY)"<<endl;
+    cin>>staf.date_ofBirth;
+     cout<<"Enter position held in school "<<endl;
+     cin>>staf.position;
 
-    ofstream stud;
-    stud.open("Students.txt", ios::app | ios::out);
-    stud<<staf.surName;
-    stud<<staf.otherName;
+    ofstream stf;
+    stuf.open("Staff.txt", ios::app | ios::out);
+    stf<<staf.surName;
+    stf<<staf.otherName;
+    stf<<staf.age;
+    stf<<staf.sex;
+    stf<<staf.date_ofBirth;
+    stf<<staf.position;
 }
 
    else if(staffInput==3)
@@ -226,6 +292,8 @@ Staff staf;
 
     cout<<"Staff Record deleted"<<endl;
     }
+     else
+          break;
     return 0;
 }
 
